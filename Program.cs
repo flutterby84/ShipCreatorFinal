@@ -1,4 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ShipCreator1.Data;
 var builder = WebApplication.CreateBuilder(args);
+// Set up SQLite in Development
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<ShipCreator1Context>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("ShipCreator1Context")));
+}
+else
+{
+    builder.Services.AddDbContext<ShipCreator1Context>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionShipCreator1Context")));
+}
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
