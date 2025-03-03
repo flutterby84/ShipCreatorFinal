@@ -14,6 +14,6 @@ namespace ShipCreator1.Data
         {
         }
 
-        public DbSet<ShipCreator1.Models.ship> ship { get; set; } = default!;
+        public DbSet<ShipCreator1.Models.Ship> Ships { get; set; } = default!;
     }
 }

@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ShipCreator1.Data;
+using ShipCreator1.Models;
+
 var builder = WebApplication.CreateBuilder(args);
-// Set up SQLite in Development
+// Set up SQLite in Development generate the db file to access sqlite (rider knows to connect to sqlite and generate the db file
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<ShipCreator1Context>(options =>
@@ -18,6 +20,12 @@ else
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+//seds program on startup if no data in db:
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShipCreator1.Data;
 using ShipCreator1.Models;
@@ -22,7 +21,7 @@ namespace ShipCreator1.Controllers
         // GET: Ship
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ship.ToListAsync());
+            return View(await _context.Ships.ToListAsync());
         }
 
         // GET: Ship/Details/5
@@ -33,7 +32,7 @@ namespace ShipCreator1.Controllers
                 return NotFound();
             }
 
-            var ship = await _context.ship
+            var ship = await _context.Ships
                 .FirstOrDefaultAsync(m => m.ShipID == id);
             if (ship == null)
             {
@@ -50,11 +49,9 @@ namespace ShipCreator1.Controllers
         }
 
         // POST: Ship/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShipID,ShipName,ShipType,NauticalMilage,PledgedFaction")] ship ship)
+        public async Task<IActionResult> Create([Bind("ShipID,ShipName,ShipType,NauticalMilage,PledgedFaction")] Ship ship)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +70,7 @@ namespace ShipCreator1.Controllers
                 return NotFound();
             }
 
-            var ship = await _context.ship.FindAsync(id);
+            var ship = await _context.Ships.FindAsync(id);
             if (ship == null)
             {
                 return NotFound();
@@ -82,11 +79,9 @@ namespace ShipCreator1.Controllers
         }
 
         // POST: Ship/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShipID,ShipName,ShipType,NauticalMilage,PledgedFaction")] ship ship)
+        public async Task<IActionResult> Edit(int id, [Bind("ShipID,ShipName,ShipType,NauticalMilage,PledgedFaction")] Ship ship)
         {
             if (id != ship.ShipID)
             {
@@ -102,7 +97,7 @@ namespace ShipCreator1.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!shipExists(ship.ShipID))
+                    if (!ShipExists(ship.ShipID))
                     {
                         return NotFound();
                     }
@@ -124,14 +119,14 @@ namespace ShipCreator1.Controllers
                 return NotFound();
             }
 
-            var ship = await _context.ship
+            var ship = await _context.Ships
                 .FirstOrDefaultAsync(m => m.ShipID == id);
             if (ship == null)
             {
                 return NotFound();
             }
 
-            return View(ship);
+            return View(ship);  
         }
 
         // POST: Ship/Delete/5
@@ -139,19 +134,19 @@ namespace ShipCreator1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ship = await _context.ship.FindAsync(id);
+            var ship = await _context.Ships.FindAsync(id); 
             if (ship != null)
             {
-                _context.ship.Remove(ship);
+                _context.Ships.Remove(ship); 
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool shipExists(int id)
+        private bool ShipExists(int id)
         {
-            return _context.ship.Any(e => e.ShipID == id);
+            return _context.Ships.Any(e => e.ShipID == id); 
         }
     }
 }

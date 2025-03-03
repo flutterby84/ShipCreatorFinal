@@ -10,7 +10,7 @@ using ShipCreator1.Data;
 namespace ShipCreator1.Migrations
 {
     [DbContext(typeof(ShipCreator1Context))]
-    [Migration("20250303162149_InitialCreate")]
+    [Migration("20250303174346_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -19,7 +19,7 @@ namespace ShipCreator1.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.2");
 
-            modelBuilder.Entity("ShipCreator1.Models.ship", b =>
+            modelBuilder.Entity("ShipCreator1.Models.Ship", b =>
                 {
                     b.Property<int>("ShipID")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace ShipCreator1.Migrations
 
                     b.HasKey("ShipID");
 
-                    b.ToTable("ship");
+                    b.ToTable("Ships");
                 });
 #pragma warning restore 612, 618
         }

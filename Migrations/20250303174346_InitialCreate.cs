@@ -11,7 +11,7 @@ namespace ShipCreator1.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ship",
+                name: "Ships",
                 columns: table => new
                 {
                     ShipID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -23,7 +23,7 @@ namespace ShipCreator1.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ship", x => x.ShipID);
+                    table.PrimaryKey("PK_Ships", x => x.ShipID);
                 });
         }
 
@@ -31,7 +31,7 @@ namespace ShipCreator1.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ship");
+                name: "Ships");
         }
     }
 }
